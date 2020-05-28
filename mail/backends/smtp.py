@@ -1,14 +1,14 @@
 import asyncio
 import logging
-from typing import List, Optional
+from typing import List, Optional, Union
 from mail.models import Message
 from mail.models import SendInput
 from mail.models import Connection
 from mail.backends.base import EmailBackendABC
-from simple_settings import settings
+from mail.config import settings
 
 from aiosmtplib import errors
-from aiosmtplib import SMTP
+# from aiosmtplib import SMTP
 import aiosmtplib
 
 
@@ -19,18 +19,20 @@ class EmailBackend(EmailBackendABC):
 
     def __init__(
         self,
-        hostname: Optional[str] = "",
-        port: Optional[str] = "",
-        username: Optional[str] = "",
-        password: Optional[str] = "",
-        use_tls: bool = False
+        hostname: str = "",
+        port: str = "",
+        username: str = "",
+        password: str = "",
+        use_tls: bool = False,
+        timeout: Optional[int] = None
     ):
         self._connection = Connection(
             hostname=hostname or settings.EMAIL_HOST,
             port=port or settings.EMAIL_PORT,
             username=username or settings.EMAIL_HOST_USER,
             password=password or settings.EMAIL_HOST_PASSWORD,
-            use_tls=use_tls or settings.EMAIL_USE_TLS
+            use_tls=use_tls or settings.EMAIL_USE_TLS,
+            timeout=timeout or settings.EMAIL_TIMEOUT
         )
 
     async def send_messages(self, email_messages: List[Message]):
@@ -56,7 +58,7 @@ class EmailBackend(EmailBackendABC):
         )
         try:
             await aiosmtplib.send(
-                **_input.dict()
+                email_message._message, **self._connection.dict()
             )
         except errors.SMTPException as err:
             logger.error(err)

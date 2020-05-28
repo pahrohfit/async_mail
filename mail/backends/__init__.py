@@ -1,4 +1,4 @@
-from simple_settings import settings
+from mail.config import settings
 
 import importlib
 

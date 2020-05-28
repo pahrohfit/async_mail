@@ -32,11 +32,4 @@ class Connection(BaseModel):
     username: Optional[SecretStr]
     password: Optional[SecretStr]
     use_tls: bool
-
-
-class SendInput(BaseModel):
-    message: EmailMessage
-    connection: Connection
-
-    class Config:
-        arbitrary_types_allowed = True
+    timeout: int

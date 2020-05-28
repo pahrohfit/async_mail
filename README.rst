@@ -31,9 +31,22 @@ to be present ::
 
 
 
+Example
+-------
 
-* Free software: MIT license
-* Documentation: https://async-mail.readthedocs.io.
+To send a single mail ::
+
+    from mail import Mail
+    from mail.models import Message
+
+    mail = Mail()
+    message = Message(
+        sender="lars.claussen@mail.com",
+        recipients=["lars.claussen@mail.com"],
+        subject="one mail",
+        message_body="one mail to rule them all"
+    )
+    await mail.send_message(message)
 
 
 TODO
@@ -42,6 +55,11 @@ TODO
 * console backend
 * pydantic settings support
 * multiple SMTP clients instead of gather for true async execution
+
+
+* Free software: MIT license
+* Documentation: https://async-mail.readthedocs.io.
+
 
 Credits
 -------

@@ -12,10 +12,9 @@ def get_settings():
         pass
     try:
         from django.conf import settings
-        from django.core.exceptions import ImproperlyConfigured
         _ = settings.EMAIL_BACKEND
         return settings
-    except (ImportError, ImproperlyConfigured):
+    except (ModuleNotFoundError, ImportError):
         pass
     raise ImportError(
         'Could not load settings. First tried simple_settings, '

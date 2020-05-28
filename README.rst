@@ -14,19 +14,34 @@ async_mail
         :alt: Documentation Status
 
 
+By django inspired async mail package.
+
+Supports simple-settings and django settings. These settings entries are expected
+to be present ::
+
+    EMAIL_BACKEND = 'mail.backends.smtp.EmailBackend'
+    EMAIL_SENDER = 'no-reply@nelen-schuurmans.nl'
+    EMAIL_HOST = '100-mail-d03.external-nens.local'
+
+    EMAIL_HOST_USER = ''
+    EMAIL_HOST_PASSWORD = ''
+    EMAIL_PORT = 25
+    EMAIL_USE_TLS = True
+    EMAIL_TIMEOUT = 5
 
 
-Python Boilerplate contains all the boilerplate you need to create a Python package.
 
 
 * Free software: MIT license
 * Documentation: https://async-mail.readthedocs.io.
 
 
-Features
+TODO
 --------
 
-* TODO
+* console backend
+* pydantic settings support
+* multiple SMTP clients instead of gather for true async execution
 
 Credits
 -------

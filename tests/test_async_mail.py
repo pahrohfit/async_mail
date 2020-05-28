@@ -5,7 +5,7 @@
 
 import unittest
 
-from async_mail import async_mail
+import mail
 
 
 class TestAsync_mail(unittest.TestCase):

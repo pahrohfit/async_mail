@@ -6,14 +6,16 @@ from typing import List
 
 from pydantic import BaseModel, SecretStr
 
+from mail.config import settings
+
 
 @dataclass
 class Message:
 
-    sender: str
     recipients: List[str]  # Todo check for multiple aka list
     subject: str
     message_body: str
+    sender: str = settings.EMAIL_SENDER
     _message: EmailMessage = field(init=False, repr=False)
 
     def __post_init__(self):

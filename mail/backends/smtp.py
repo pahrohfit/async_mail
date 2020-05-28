@@ -51,7 +51,7 @@ class EmailBackend(EmailBackendABC):
 
     async def _send(self, email_message: Message):
         _input = SendInput(
-            message=email_message.__message,
+            message=email_message._message,
             connection=self._connection
         )
         try:

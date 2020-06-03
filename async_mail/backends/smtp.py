@@ -1,12 +1,13 @@
 import asyncio
 import logging
-from typing import List, Optional
+from typing import List, Optional, NamedTuple, Union
 from async_mail.models import Message
 from async_mail.models import Connection
 from async_mail.backends.base import EmailBackendABC
 from async_mail.config import settings
 
 from aiosmtplib import errors
+from aiosmtplib.response import SMTPResponse
 # from aiosmtplib import SMTP
 import aiosmtplib
 
@@ -38,23 +39,32 @@ class EmailBackend(EmailBackendABC):
             timeout=timeout or settings.EMAIL_TIMEOUT
         )
 
-    async def send_messages(self, email_messages: List[Message]):
+    async def send_messages(
+        self, email_messages: List[Message]
+    ) -> List[Union[SMTPResponse[NamedTuple[int, str]], MailException]]:
+        """send multiple messages"""
         tasks = []
         for mail in email_messages:
-            task = asyncio.create_task(self._send(mail))
+            task = asyncio.ensure_future(self._send(mail))
             tasks.append(task)
         # SMTP.send_message() tasks in parallel (i.e. with asyncio.gather())
         # is not any more efficient than executing in sequence, as the client
         # must wait until one mail is sent before beginning the next.
         # If you have a lot of emails to send, consider creating multiple
         # connections (SMTP instances) and splitting the work between them.
-        results = asyncio.gather(*tasks, return_exceptions=True)
+        results = await asyncio.gather(*tasks, return_exceptions=True)
         logger.info("Results: %s", results)
+        return results
 
-    async def send_message(self, email_message: Message):
-        await self._send(email_message)
+    async def send_message(
+        self, email_message: Message
+    ) -> SMTPResponse[NamedTuple[int, str]]:
+        """send a single message"""
+        return await self._send(email_message)
 
-    async def _send(self, email_message: Message):
+    async def _send(
+        self, email_message: Message
+    ) -> SMTPResponse[NamedTuple[int, str]]:
         try:
             return await aiosmtplib.send(
                 email_message._message, **self._connection.dict()

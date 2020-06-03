@@ -44,6 +44,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/larsclaussen/async_mail',
-    version='0.0.2.dev0',
+    version='0.0.2',
     zip_safe=False,
 )

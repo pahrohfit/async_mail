@@ -2,37 +2,9 @@
 History
 =======
 
-0.0.6 (unreleased)
-------------------
-
-- Nothing changed yet.
-
-
-0.0.5 (2020-06-03)
-------------------
-
-- Add async_mail.errors.
-
-
-0.0.4 (2020-06-03)
+0.1b (unreleased)
 ------------------
 
 - Beta release.
 
 
-0.0.3 (2020-06-03)
-------------------
-
-- Another test release.
-
-
-0.0.2 (2020-06-03)
-------------------
-
-- Test release.
-
-
-0.0.1 (2020-06-03)
-------------------
-
-* First release on PyPI.

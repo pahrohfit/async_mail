@@ -38,7 +38,7 @@ class EmailBackend(EmailBackendABC):
 
     async def send_messages(
         self, email_messages: List[Message]
-    ) -> List[Union[SMTPResponse[NamedTuple[int, str]], MailException]]:
+    ) -> List[Union[SMTPResponse, MailException]]:
         """send multiple messages"""
         tasks = []
         for mail in email_messages:
@@ -55,13 +55,13 @@ class EmailBackend(EmailBackendABC):
 
     async def send_message(
         self, email_message: Message
-    ) -> SMTPResponse[NamedTuple[int, str]]:
+    ) -> SMTPResponse:
         """send a single message"""
         return await self._send(email_message)
 
     async def _send(
         self, email_message: Message
-    ) -> SMTPResponse[NamedTuple[int, str]]:
+    ) -> SMTPResponse:
         try:
             return await aiosmtplib.send(
                 email_message._message, **self._connection.dict()

@@ -5,6 +5,7 @@ from async_mail.models import Message
 from async_mail.models import Connection
 from async_mail.backends.base import EmailBackendABC
 from async_mail.config import settings
+from async_mail.errors import MailException
 
 from aiosmtplib import errors
 from aiosmtplib.response import SMTPResponse
@@ -13,10 +14,6 @@ import aiosmtplib
 
 
 logger = logging.getLogger(__name__)
-
-
-class MailException(BaseException):
-    pass
 
 
 class EmailBackend(EmailBackendABC):

@@ -5,7 +5,7 @@ History
 0.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add async_mail.errors.
 
 
 0.0.4 (2020-06-03)

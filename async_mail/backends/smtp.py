@@ -23,17 +23,17 @@ class EmailBackend(EmailBackendABC):
     def __init__(
         self,
         hostname: str = "",
-        port: str = "",
-        username: str = "",
-        password: str = "",
+        port: int = "",
         use_tls: bool = False,
-        timeout: Optional[int] = None
+        timeout: Optional[int] = None,
+        username: Optional[str] = None,
+        password: Optional[str] = None,
     ):
         self._connection = Connection(
             hostname=hostname or settings.EMAIL_HOST,
             port=port or settings.EMAIL_PORT,
-            username=username or settings.EMAIL_HOST_USER,
-            password=password or settings.EMAIL_HOST_PASSWORD,
+            username=username or str(settings.EMAIL_HOST_USER or None),
+            password=password or str(settings.EMAIL_HOST_PASSWORD or None),
             use_tls=use_tls or settings.EMAIL_USE_TLS,
             timeout=timeout or settings.EMAIL_TIMEOUT
         )

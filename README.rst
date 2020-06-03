@@ -19,9 +19,9 @@ By django inspired async mail package.
 Supports simple-settings and django settings. These settings entries are expected
 to be present ::
 
-    EMAIL_BACKEND = 'mail.backends.smtp.EmailBackend'
+    EMAIL_BACKEND = 'async_mail.backends.smtp.EmailBackend'
     EMAIL_SENDER = 'no-reply@nelen-schuurmans.nl'
-    EMAIL_HOST = '100-mail-d03.external-nens.local'
+    EMAIL_HOST = 'your-host-name'
 
     EMAIL_HOST_USER = ''
     EMAIL_HOST_PASSWORD = ''

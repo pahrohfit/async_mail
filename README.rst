@@ -36,8 +36,8 @@ Example
 
 To send a single mail ::
 
-    from mail import Mail
-    from mail.models import Message
+    from async_mail import Mail
+    from async_mail.models import Message
 
     mail = Mail()
     message = Message(

@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
-from mail.models import Message
+from async_mail.models import Message
 
 
 class EmailBackendABC(metaclass=ABCMeta):

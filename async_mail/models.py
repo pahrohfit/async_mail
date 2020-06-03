@@ -1,12 +1,12 @@
-from typing import Optional
 from dataclasses import dataclass
 from dataclasses import field
 from email.message import EmailMessage
+from typing import Optional
 from typing import List
 
 from pydantic import BaseModel, SecretStr
 
-from mail.config import settings
+from async_mail.config import settings
 
 
 @dataclass

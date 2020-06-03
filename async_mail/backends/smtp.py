@@ -1,11 +1,10 @@
 import asyncio
 import logging
-from typing import List, Optional, Union
-from mail.models import Message
-from mail.models import SendInput
-from mail.models import Connection
-from mail.backends.base import EmailBackendABC
-from mail.config import settings
+from typing import List, Optional
+from async_mail.models import Message
+from async_mail.models import Connection
+from async_mail.backends.base import EmailBackendABC
+from async_mail.config import settings
 
 from aiosmtplib import errors
 # from aiosmtplib import SMTP
@@ -13,6 +12,10 @@ import aiosmtplib
 
 
 logger = logging.getLogger(__name__)
+
+
+class MailException(BaseException):
+    pass
 
 
 class EmailBackend(EmailBackendABC):
@@ -52,14 +55,10 @@ class EmailBackend(EmailBackendABC):
         await self._send(email_message)
 
     async def _send(self, email_message: Message):
-        _input = SendInput(
-            message=email_message._message,
-            connection=self._connection
-        )
         try:
             await aiosmtplib.send(
                 email_message._message, **self._connection.dict()
             )
         except errors.SMTPException as err:
             logger.error(err)
-            raise
+            raise MailException(err)

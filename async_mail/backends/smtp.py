@@ -32,8 +32,8 @@ class EmailBackend(EmailBackendABC):
         self._connection = Connection(
             hostname=hostname or settings.EMAIL_HOST,
             port=port or settings.EMAIL_PORT,
-            username=username or str(settings.EMAIL_HOST_USER or None),
-            password=password or str(settings.EMAIL_HOST_PASSWORD or None),
+            username=username or str(settings.EMAIL_HOST_USER) or None,
+            password=password or str(settings.EMAIL_HOST_PASSWORD) or None,
             use_tls=use_tls or settings.EMAIL_USE_TLS,
             timeout=timeout or settings.EMAIL_TIMEOUT
         )
@@ -56,7 +56,7 @@ class EmailBackend(EmailBackendABC):
 
     async def _send(self, email_message: Message):
         try:
-            await aiosmtplib.send(
+            return await aiosmtplib.send(
                 email_message._message, **self._connection.dict()
             )
         except errors.SMTPException as err:

@@ -15,7 +15,7 @@ class Message:
     recipients: List[str]  # Todo check for multiple aka list
     subject: str
     message_body: str
-    sender: str = settings.EMAIL_SENDER
+    sender: str = settings.get('EMAIL_SENDER')
     _message: EmailMessage = field(init=False, repr=False)
 
     def __post_init__(self):

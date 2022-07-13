@@ -14,12 +14,11 @@ def get_settings():
         pass
     try:
         from sanic import Sanic
-        from sanic.exceptions import SanicException
+        from sanic.log import logger
         _ = Sanic.get_app().config.EMAIL_BACKEND
-        print("Found something!!!")
+        logger.critical("Found something!!!")
         return Sanic.get_app().config
     except (RuntimeError, ImportError, ModuleNotFoundError):
-        print("Failed something!!!")
         pass
     except Exception as e:
         try:

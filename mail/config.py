@@ -11,6 +11,18 @@ def get_settings():
     except (RuntimeError, ImportError, ModuleNotFoundError):
         pass
     try:
+        from sanic import Sanic
+        _ = Sanic.get_app().config.EMAIL_BACKEND
+        return Sanic.get_app().config
+    except (RuntimeError, ImportError, ModuleNotFoundError):
+        pass
+    try:
+        from flask import flask
+        _ = flask.current_app.config.EMAIL_BACKEND
+        return flask.current_app.config
+    except (RuntimeError, ImportError, ModuleNotFoundError):
+        pass
+    try:
         from django.conf import settings
         _ = settings.EMAIL_BACKEND
         return settings

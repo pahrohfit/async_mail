@@ -21,7 +21,7 @@ def get_settings():
         try:
             from sanic.exceptions import SanicException
             if isinstance(e, SanicException):
-                return None
+                return dict([])
             else:
                 raise Exception(e)
         except (RuntimeError, ImportError, ModuleNotFoundError):

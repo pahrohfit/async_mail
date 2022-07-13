@@ -1,7 +1,7 @@
 from async_mail.backends import get_backend
 
 #Mail = get_backend()
-Mail = None
+Mail: object = ()
 
 def init_app(app = None):
     if app:

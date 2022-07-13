@@ -12,10 +12,20 @@ def get_settings():
         pass
     try:
         from sanic import Sanic
+        from sanic.exceptions import SanicException
         _ = Sanic.get_app().config.EMAIL_BACKEND
         return Sanic.get_app().config
     except (RuntimeError, ImportError, ModuleNotFoundError):
         pass
+    except Exception as e:
+        try:
+            from sanic.exceptions import SanicException
+            if isinstance(e, SanicException):
+                pass
+            else:
+                raise Exception(e)
+        except (RuntimeError, ImportError, ModuleNotFoundError):
+            pass
     try:
         from flask import flask
         _ = flask.current_app.config.EMAIL_BACKEND

@@ -15,8 +15,9 @@ def get_settings():
     try:
         from sanic import Sanic
         from sanic.log import logger
-        _ = Sanic.get_app().config.EMAIL_BACKEND
         logger.critical("Found something!!!")
+        _ = Sanic.get_app().config.EMAIL_BACKEND
+        logger.critical("Found something.2!!!")
         return Sanic.get_app().config
     except (RuntimeError, ImportError, ModuleNotFoundError):
         pass

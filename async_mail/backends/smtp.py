@@ -1,11 +1,11 @@
 import asyncio
 import logging
 from typing import List, Optional, Union
-from mail.models import Message
-from mail.models import SendInput
-from mail.models import Connection
-from mail.backends.base import EmailBackendABC
-from mail.config import settings
+from async_mail.models import Message
+from async_mail.models import SendInput
+from async_mail.models import Connection
+from async_mail.backends.base import EmailBackendABC
+from async_mail.config import settings
 
 from aiosmtplib import errors
 # from aiosmtplib import SMTP

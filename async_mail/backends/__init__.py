@@ -1,4 +1,4 @@
-from mail.config import settings
+from async_mail.config import settings
 
 import importlib
 

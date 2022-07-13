@@ -1,5 +1,7 @@
 from functools import lru_cache
 
+class FactoryBase:
+    EMAIL_BACKEND = None
 
 @lru_cache()
 def get_settings():
@@ -21,7 +23,7 @@ def get_settings():
         try:
             from sanic.exceptions import SanicException
             if isinstance(e, SanicException):
-                return ()
+                return FactoryBase
             else:
                 raise Exception(e)
         except (RuntimeError, ImportError, ModuleNotFoundError):
